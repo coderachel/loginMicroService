@@ -12,7 +12,7 @@ const app = new Koa();
 // 默认是请求进来的header Authorization: `Bearer jwt`
 const jwtAuthWhite = koaJwt({ secret: PRIVATE_KEY }).unless({
   // 登录接口不需要验证
-  path: [/^\/api\/login/],
+  path: [/^\/api\/login/, /^\/api\/signin/],
 });
 
 const jwtAuthRouter = function (ctx, next) {

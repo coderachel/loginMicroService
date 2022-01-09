@@ -4,7 +4,7 @@ const MYSQL_CONF = {
   port: "3306",
   password: "root",
   user: "root",
-  database: "loginMicroServe",
+  database: "loginmicroservices",
   host: "localhost",
 };
 
