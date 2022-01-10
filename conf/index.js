@@ -8,8 +8,14 @@ const MYSQL_CONF = {
   host: "localhost",
 };
 
+const REDIS_CONF = {
+  port: 6379,
+  host: "127.0.0.1",
+};
+
 module.exports = {
   PRIVATE_KEY,
   JWT_EXPIRED,
   MYSQL_CONF,
+  REDIS_CONF,
 };

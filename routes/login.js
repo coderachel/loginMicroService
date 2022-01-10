@@ -8,16 +8,19 @@ const {
   modifyPassword,
   delUser,
 } = require("../controller/user");
+const { set, get } = require("../db/redis");
 
 router.prefix("/api");
 
 router.post("/login", async (ctx) => {
   const { password, username } = ctx.request.body;
   const result = await login(username, password);
-  console.log(result, password, username);
   if (username === result.username) {
     const token = jwt.sign({ username }, PRIVATE_KEY, {
       expiresIn: JWT_EXPIRED,
+    });
+    await set(username, {
+      token,
     });
     ctx.body = new SuccessModel({
       token,
@@ -53,6 +56,12 @@ router.get("/delete/user", async (ctx) => {
 
 router.get("/test", async (ctx) => {
   ctx.body = new SuccessModel("访问成功");
+});
+
+router.get("/token", async (ctx) => {
+  const { username } = ctx.request.body;
+  let result = await get(username);
+  ctx.body = new SuccessModel(result);
 });
 
 module.exports = router;
